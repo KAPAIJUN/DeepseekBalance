@@ -1,0 +1,16 @@
+# macOS
+.DS_Store
+
+# 本地数据 / 密钥（绝不提交）
+*.json
+!*.json.example
+*.plist
+state.json
+config.json
+
+# 构建产物
+*.o
+*.swiftmodule
+*.app/
+DeepSeekBalance
+build/
