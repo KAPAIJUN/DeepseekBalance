@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-test:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 编译检查（含并发告警）
+        run: |
+          xcrun swiftc -parse-as-library -O -warn-concurrency -o /tmp/dsb \
+            DeepSeekBalance.swift \
+            -framework SwiftUI -framework AppKit -framework UserNotifications -framework Charts
+
+      - name: 运行解析单测
+        run: swift tests/parse_tests.swift
+
+      - name: 打包验证
+        run: ./build.sh package
